@@ -19,7 +19,7 @@ namespace Game
             base.OnUpdate();
 
             // update gravity / falling
-            m_fGravitySpeed = Controller.isGrounded ? 0.0f : m_fGravitySpeed + Time.deltaTime * 9.82f;
+            m_fGravitySpeed = Utils.CalculateGravitySpeed(m_fGravitySpeed, Controller.isGrounded, Time.deltaTime);
             Vector3 vGravityVelocity = Vector3.down * m_fGravitySpeed;
 
             // forward / back
@@ -56,6 +56,11 @@ namespace Game
             if (Jump)
             {
                 Lara.PushEvent(new JumpEvent(Lara));
+            }
+
+            if (Sprint)
+            {
+                Lara.PushEvent(new SprintEvent(Lara));
             }
 
             if (Pause)

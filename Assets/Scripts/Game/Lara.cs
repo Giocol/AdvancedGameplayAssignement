@@ -33,6 +33,8 @@ namespace Game
 
             public bool Jump => m_lara.m_jump.triggered;
 
+            public bool Sprint => m_lara.m_sprint.inProgress;
+
             public bool Pause => m_lara.m_pause.triggered;
 
             #endregion
@@ -50,7 +52,8 @@ namespace Game
         private InputAction             m_interact;
         private InputAction             m_jump;
         private InputAction             m_pause;
-
+        private InputAction             m_sprint;
+        
         private static Lara             sm_instance;
 
         public const float              MOVE_SPEED = 4.0f;
@@ -76,6 +79,7 @@ namespace Game
             m_interact = pi.actions["Interact"];
             m_jump = pi.actions["Jump"];
             m_pause = pi.actions["Pause"];
+            m_sprint = pi.actions["Sprint"];
 
             PushEvent(new ExplorationEvent(this));
         }
