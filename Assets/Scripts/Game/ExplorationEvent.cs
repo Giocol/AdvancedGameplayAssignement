@@ -9,9 +9,12 @@ namespace Game
     {
         private float       m_fSpeed;
         private float       m_fGravitySpeed;
+        private Stamina     m_stamina;
 
         public ExplorationEvent(Lara lara) : base(lara)
         {
+            m_stamina = Resources.Load<Stamina>("ScriptableObjects/Stamina");
+            m_stamina.Init();
         }
 
         public override void OnUpdate()
@@ -60,13 +63,15 @@ namespace Game
 
             if (Sprint)
             {
-                Lara.PushEvent(new SprintEvent(Lara));
+                Lara.PushEvent(new SprintEvent(Lara, m_stamina));
             }
 
             if (Pause)
             {
                 PausePopup.Create<PausePopup>(Lara);
             }
+
+            m_stamina.ModifyStamina(+Time.deltaTime);
         }
 
         public override bool IsDone()
